@@ -27,10 +27,23 @@ if
 	# Load the program on to the Wii.
 	tput setaf 117
 	echo "3. Starting the app on the Wii..."
+	tput sgr0
 	if
-		[ "$WIILOAD" != "tcp:NintendoWii" ]
+		[ -f WiiIP.txt ]
 	then
-		export WIILOAD="tcp:NintendoWii"
+		WiiIP=$(cat WiiIP.txt)
+	else
+		echo -e "Wii's IP is not saved, please enter your Wii's IP address or leave blank to skip this step."
+		read -r WiiIP
+		echo -e "Saving...\n"
+		echo "${WiiIP}" > WiiIP.txt
+	fi
+	if
+		[ "$WIILOAD" != "tcp:${WiiIP}" ]
+	then
+		export WIILOAD="tcp:${WiiIP}"
+	else
+		echo "Something went wrong, please report error code 1."
 	fi
 	if
 		make run > /dev/null
