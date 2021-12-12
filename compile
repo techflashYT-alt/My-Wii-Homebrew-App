@@ -1,0 +1,75 @@
+#!/bin/bash
+if
+	# Clean up incase the compilation failed earlier.
+	tput setaf 117
+	echo 1. Cleaning up...
+	make clean > /dev/null
+	tput setaf 46
+	echo -e "Done!\n"
+
+	# Compile
+	tput setaf 117
+	echo 2. Compiling...
+	tput sgr0
+	if
+		make
+	then
+		tput setaf 46
+		echo -e "Done!\n"
+		tput sgr0
+	else
+		tput setab 1
+		echo "ERROR: Something failed, check the compilation log.  Exiting...."
+		tput sgr0
+		exit 1
+	fi
+
+	# Load the program on to the Wii.
+	tput setaf 117
+	echo "3. Starting the app on the Wii..."
+	if
+		[ "$WIILOAD" != "tcp:NintendoWii" ]
+	then
+		export WIILOAD="tcp:NintendoWii"
+	fi
+	if
+		make run > /dev/null
+	then
+		tput setaf 46
+		echo -e "Done!\n"
+		tput sgr0
+	else
+		tput setab 1
+		echo -e "ERROR: Failed to load the program on the Wii,\n
+		check if the Wii is powered on and in the Homebrew Channel.\n
+		If this still doesn't help, make sure that the app successfully compiled.\n
+		Exiting..."
+		tput sgr0
+		exit 1
+	fi
+
+	# Clean up after compilation.
+	tput setaf 117
+	echo "4. Cleaning up..."
+	tput setaf 0
+	if
+		make clean > /dev/null
+	then
+		tput setaf 46
+		echo -e "Done!\n"
+		tput sgr0
+	else
+		tput setab 1
+		echo -e "ERROR: Failed to clean up files.\n
+		Check the permissions and try running 'make clean' again.
+		Exiting..."
+		tput sgr0
+		exit 1
+	fi
+	tput sgr0
+	echo "All done!  Now go check the Wii to see if it works!"
+then
+	exit 0
+else
+	exit 1
+fi
