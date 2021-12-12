@@ -18,7 +18,7 @@ functionality yet.
 
 ### Minus (-) Button:
 
-**Not yet implemented**, show controls  
+***Not yet implemented***, show controls  
 
 ## Anywhere
 
