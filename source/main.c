@@ -33,7 +33,7 @@ void AutoDetectPowerOffWiimote(s32 chan) {
 int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
 
-	SYS_SetResetCallback(HotReset); //Console reset button support
+	SYS_SetResetCallback(StartClose); //Console reset button support
 	SYS_SetPowerCallback(AutoDetectPowerOff); //Console power button support
 	WPAD_SetPowerButtonCallback(AutoDetectPowerOffWiimote); //Wiimote power button support
 	
