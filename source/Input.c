@@ -55,6 +55,14 @@ void getControllerInput() {
 		void displayMenu(char* menuName[100], bool Horizontal, int optionsNum, struct MenuOptions MenuOptions);
 		displayMenu(menuName, Horizontal, optionsNum, MenuOptions);
 	}
+
+	else if (pressed & WPAD_BUTTON_MINUS) {
+		ScrollAway();
+		ClearConsole();
+		char* state[12];
+		state[0] = "DisplayHelp";
+		ChangeState(state[0]);
+	}
 	else {
 		// Not implemented
 	}
