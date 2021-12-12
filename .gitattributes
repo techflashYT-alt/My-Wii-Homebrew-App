@@ -1,2 +1,22 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Turn all the LFs in CRLFs
+*						text=auto
+
+# Handle everything else
+
+*.gitattributes			text
+.gitignore				text
+.md						text diff=markdown
+
+*.gitattributes 		linguist-language=gitattributes
+
+
+*.c						text diff=c
+*.h						text diff=c
+
+
+compile					text diff=sh eol=lf
+*.sh					text diff=sh eol=lf
+*.bash					text diff=sh eol=lf
+
+Makefile				text diff=makefile eol=lf
+
