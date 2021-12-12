@@ -37,6 +37,8 @@ int main(int argc, char **argv) {
 	SYS_SetPowerCallback(AutoDetectPowerOff); //Console power button support
 	WPAD_SetPowerButtonCallback(AutoDetectPowerOffWiimote); //Wiimote power button support
 	
+	char* CurrentState[100];
+	CurrentState[0] = "none";
 
 
 	static void *xfb = NULL;
@@ -84,7 +86,7 @@ int main(int argc, char **argv) {
 	// This positions the cursor on row 2, column 0
 	// we can use variables for this with format codes too
 	// e.g. printf ("\x1b[%d;%dH", row, column );
-	printf("\r\n\r\n");
+	printf("\x0A\x0A");
 
 	printf("Welcome to Techflash's\x0AWii application\x0A\x0A\x0A");
 
