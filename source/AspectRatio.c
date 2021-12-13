@@ -2,23 +2,25 @@
 #include "head/WiiHeaders.h"
 
 char* checkAspect() {
-    char* AspectRatio;
+	char* AspectRatio;
 	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9) {
-        AspectRatio = "16:9";
+		AspectRatio = "0";
 		if (debugMode) {
-			printf("Aspect ratio: %s\r\n", AspectRatio);
+			printf("Aspect ratio: 16:9");
 		}
+		return AspectRatio;
 	}
 	else if (CONF_GetAspectRatio() == CONF_ASPECT_4_3) {
-            AspectRatio = "4:3";
-			if (debugMode) {
-				printf("Aspect ratio: %s\r\n", AspectRatio);
-			}
+		AspectRatio = "1";
+		if (debugMode) {
+			printf("Aspect ratio: 4:3");
+		}
+		return AspectRatio;
 	}
 	else {
-		printf("Aspect ration not set in system settings\x0Aor error trying to get the value!");
+		printf("Aspect ratio not set in system settings\x0Aor error trying to get the value!");
 		printf("\x0AThings might go VERY wrong.");
-		AspectRatio = "Unknown";
+		AspectRatio = "2";
 	}
-    return AspectRatio;
+	return AspectRatio;
 }
