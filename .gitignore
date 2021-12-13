@@ -3,3 +3,4 @@ bin/
 *.bak
 *.old
 WiiIP.txt
+.vscode
