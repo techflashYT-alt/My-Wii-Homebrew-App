@@ -104,8 +104,8 @@ $(BUILD):
 #	@$(DEVKITPPC)/bin/powerpc-eabi-gcc source/*.c $(CFLAGS) -Wfatal-errors -o boot.dol
 	@if ! [[ -d "bin" ]] ; then mkdir bin ; fi
 	@if ! [[ -d "bin/elf" ]] ; then mkdir bin/elf ; fi
-	@if [[ -f boot.elf ]]; then mv boot.elf bin/elf/boot.elf; fi
-	@mv boot.dol bin/
+	@if [[ -f boot.elf ]]; then mv boot.elf bin/elf/boot.elf -f; fi
+	@mv boot.dol bin/boot.dol -f
 	
 #---------------------------------------------------------------------------------
 clean:
