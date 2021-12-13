@@ -29,6 +29,9 @@ void AutoDetectPowerOffWiimote(s32 chan) {
 	HWAction = SYS_POWEROFF;
 }
 
+const char *CurrentState = "None";
+
+
 //---------------------------------------------------------------------------------
 int main(int argc, char **argv) {
 //---------------------------------------------------------------------------------
@@ -37,8 +40,7 @@ int main(int argc, char **argv) {
 	SYS_SetPowerCallback(AutoDetectPowerOff); //Console power button support
 	WPAD_SetPowerButtonCallback(AutoDetectPowerOffWiimote); //Wiimote power button support
 	
-	char* CurrentState[100];
-	CurrentState[0] = "none";
+	//char* CurrentState[12];
 
 
 	static void *xfb = NULL;
@@ -88,9 +90,11 @@ int main(int argc, char **argv) {
 	// e.g. printf ("\x1b[%d;%dH", row, column );
 	printf("\x0A\x0A");
 
-	printf("Welcome to Techflash's\x0AWii application\x0A\x0A\x0A");
+	printf("\033[33mWelcome to Techflash's\x0AWii application\033[37m\x0A\x0A\x0A"); // 1st is yellow color code, then reset
 
-	checkAspect();
+	// if (checkAspect() == 0) {
+		
+	// }
 	printf("To go to the menu,\x0Apress the A button");
 	// char* confirm[25];
 	// confirm[0] = "confirm";
@@ -101,6 +105,7 @@ int main(int argc, char **argv) {
 	while(true) {
 		getControllerInput();
 		VIDEO_WaitVSync();
+		CheckForNewAction();
 
 		if (HWAction != -1) {
 			break;
