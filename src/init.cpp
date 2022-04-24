@@ -1,4 +1,7 @@
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
 #include <gccore.h>
+#pragma GCC diagnostic pop
 #include <stdio.h>
 #include <wiiuse/wpad.h>
 /*!

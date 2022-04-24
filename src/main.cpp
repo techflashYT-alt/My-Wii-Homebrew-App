@@ -4,8 +4,13 @@
 #include <string.h>
 #include <unistd.h>
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpedantic"
 #include <gccore.h>
+#pragma GCC diagnostic pop
 #include <wiiuse/wpad.h>
+
+#include "inc/color.hpp"
 
 static void *xfb = NULL;
 static GXRModeObj *rmode = NULL;
@@ -22,7 +27,7 @@ int main(int argc, char **argv) {
 	(void)argc;
 	(void)argv;
 	init(xfb, rmode);
-	printf("Welcome to Techflash's Wii App!\r\n");
+	printf("Welcome to Techflash's Wii App!\r\nPress the \x1b[32mA\x1b[0m button to start.\r\n");
 
 	while(true) {
 		// Get the current controller connected

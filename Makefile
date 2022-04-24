@@ -25,7 +25,7 @@ INCLUDES	:=
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		= -Ofast -Wall -Wextra -Wformat-truncation -Wformat-overflow -Wshadow -Wformat=2 -Wconversion -Wunused-parameter -Werror $(MACHDEP) $(INCLUDE)
+CFLAGS		= -Ofast -Wall -Wextra -Wpedantic -Wformat-truncation -Wformat-overflow -Wshadow -Wformat=2 -Wconversion -Wunused-parameter -Werror $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=  $(CFLAGS)
 
 LDFLAGS	=	-s $(MACHDEP)

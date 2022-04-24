@@ -8,7 +8,7 @@
 	\returns Nothing
 */
 void consoleClear() {
-	printf("\e[2;0H\e[2J");
+	printf("\033[2;0H\033[2J");
 }
 /*!
 	\fn
@@ -19,7 +19,7 @@ void consoleClear() {
 	\returns Nothing
 */
 void consoleMove(uint8_t x, uint8_t y) {
-	printf("\e[%d;%dH", y, x);
+	printf("\033[%d;%dH", y, x);
 }
 /*!
 	\fn

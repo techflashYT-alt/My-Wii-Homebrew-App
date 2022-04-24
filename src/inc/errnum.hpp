@@ -1,0 +1,4 @@
+#define ERR_NO_MENU_TITLE 1
+#define ERR_NO_MENU_OPTS 2
+#define ERR_NO_MENU_OPTNAMES 3
+#define ERR_NO_MENU_DATA 4
