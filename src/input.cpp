@@ -3,42 +3,94 @@
 #include <stdlib.h>
 #include <gccore.h>
 #include <wiiuse/wpad.h>
+/*!
+	\fn
+	\brief Handle inputs from the Wii remote
 
-void handleInput(uint32_t WpadPressed) {
+	\param WpadPressed A const reference to the current buttons that are pressed.
+	\returns A char corresponding to the button that was pressed.
+*/
+char handleInput(const uint32_t &WpadPressed) {
 	if (WpadPressed & WPAD_BUTTON_A) {
-		printf("A pressed\r\n");
+		return 'A';
 	}
-	if (WpadPressed & WPAD_BUTTON_B) {
-		printf("B pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_B) {
+		return 'B';
 	}
-	if (WpadPressed & WPAD_BUTTON_1) {
-		printf("1 pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_1) {
+		return '1';
 	}
-	if (WpadPressed & WPAD_BUTTON_2) {
-		printf("2 pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_2) {
+		return '2';
 	}
-	if (WpadPressed & WPAD_BUTTON_PLUS) {
-		printf("+ pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_PLUS) {
+		return '+';
 	}
-	if (WpadPressed & WPAD_BUTTON_MINUS) {
-		printf("- pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_MINUS) {
+		return '-';
 	}
-	if (WpadPressed & WPAD_BUTTON_HOME) {
-		exit(0);
+	else if (WpadPressed & WPAD_BUTTON_HOME) {
+		return 'H';
 	}
-	if (WpadPressed & WPAD_BUTTON_LEFT) {
-		printf("Left pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_LEFT) {
+		return 'L';
 	}
-	if (WpadPressed & WPAD_BUTTON_RIGHT) {
-		printf("Right pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_RIGHT) {
+		return 'R';
 	}
-	if (WpadPressed & WPAD_BUTTON_UP) {
-		printf("Up pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_UP) {
+		return 'U';
 	}
-	if (WpadPressed & WPAD_BUTTON_DOWN) {
-		printf("Down pressed\r\n");
+	else if (WpadPressed & WPAD_BUTTON_DOWN) {
+		return 'D';
 	}
-	if (WpadPressed & WPAD_BUTTON_PLUS) {
-		printf("+ pressed\r\n");
+	return '\0';
+}
+
+/*!
+	\fn
+	\brief Convert the handleInput() button codes to a string.
+
+	\param button A char corresponding to the button that was pressed.
+	\returns A string corresponding to the button that was pressed.
+*/
+char* convertInputToString(const char &button) {
+	switch (button) {
+		case 'A': {
+			return (char *)"A";
+		}
+		case 'B': {
+			return (char *)"B";
+		}
+		case '1': {
+			return (char *)"1";
+		}
+		case '2': {
+			return (char *)"2";
+		}
+		case '+': {
+			return (char *)"+";
+		}
+		case '-': {
+			return (char *)"-";
+		}
+		case 'H': {
+			return (char *)"Home";
+		}
+		case 'L': {
+			return (char *)"Left";
+		}
+		case 'R': {
+			return (char *)"Right";
+		}
+		case 'U': {
+			return (char *)"Up";
+		}
+		case 'D': {
+			return (char *)"Down";
+		}
+		default: {
+			return nullptr;
+		}
 	}
 }

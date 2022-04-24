@@ -8,7 +8,7 @@
     \param xfb A reference to the framebuffer to use.
     \param rmode A reference to the video mode to use.
     
-    \return Nothing
+    \returns Nothing
 */
 void init(void *&xfb, GXRModeObj *&rmode) {
     // Initialise the GPU
