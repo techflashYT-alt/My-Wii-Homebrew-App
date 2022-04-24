@@ -15,10 +15,9 @@ include $(DEVKITPPC)/wii_rules
 # SOURCES is a list of directories containing source code
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-SHELL		:=	/bin/bash
-TARGET		:=	$(notdir "boot")
+TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
+SOURCES		:=	src
 DATA		:=	data
 INCLUDES	:=
 
@@ -26,10 +25,10 @@ INCLUDES	:=
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS	= -O3 -Wall -std=c11 $(MACHDEP) $(INCLUDE) 
-CXXFLAGS	=	$(CFLAGS)
+CFLAGS		= -Ofast -Wall -Wextra -Wformat-truncation -Wformat-overflow -Wshadow -Wformat=2 -Wconversion -Wunused-parameter -Werror $(MACHDEP) $(INCLUDE)
+CXXFLAGS	=  $(CFLAGS)
 
-LDFLAGS	=	-O3 $(MACHDEP) -Wl,-Map,$(notdir $@).map
+LDFLAGS	=	-s $(MACHDEP)
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
@@ -68,11 +67,7 @@ BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
-ifeq ($(strip $(CPPFILES)),)
-	export LD	:=	$(CC)
-else
-	export LD	:=	$(CXX)
-endif
+export LD	:=	$(CXX)
 
 export OFILES_BIN	:=	$(addsuffix .o,$(BINFILES))
 export OFILES_SOURCES := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o) $(sFILES:.s=.o) $(SFILES:.S=.o)
@@ -93,34 +88,23 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES), -iquote $(CURDIR)/$(dir)) \
 #---------------------------------------------------------------------------------
 export LIBPATHS	:= -L$(LIBOGC_LIB) $(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
-export OUTPUT	:=	$(CURDIR)/$(TARGET)
+export OUTPUT	:=	$(CURDIR)/bin/$(TARGET)
 .PHONY: $(BUILD) clean
 
 #---------------------------------------------------------------------------------
 $(BUILD):
-	@[ -d $@ ] || mkdir -p $@
+	@[ -d build ] || mkdir -p build
+	@[ -d bin ] || mkdir -p bin
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-#	@$(DEVKITPPC)/bin/powerpc-eabi-g++ source/*.cpp $(CFLAGS) -Wfatal-errors -e main -o boot.dol
-#	@$(DEVKITPPC)/bin/powerpc-eabi-gcc source/*.c $(CFLAGS) -Wfatal-errors -o boot.dol
-	@if ! [[ -d "bin" ]] ; then mkdir bin ; fi
-	@if ! [[ -d "bin/elf" ]] ; then mkdir bin/elf ; fi
-	@if [[ -f boot.elf ]]; then mv boot.elf bin/elf/boot.elf -f; fi
-	@mv boot.dol bin/boot.dol -f
-	
-#---------------------------------------------------------------------------------
-clean:
-	@echo Cleaning...
-	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol
 
 #---------------------------------------------------------------------------------
-fullclean:
-	@echo Removing everything...	
+clean:
+	@echo clean ...
 	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol
-	@rm -rf bin
 
 #---------------------------------------------------------------------------------
 run:
-	wiiload bin/boot.dol
+	wiiload $(OUTPUT).dol
 
 
 #---------------------------------------------------------------------------------
